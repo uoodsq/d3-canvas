@@ -17,5 +17,9 @@
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/bspoon/d3-canvas/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib": "~0.6.1"
   }
 }
