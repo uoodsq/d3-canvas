@@ -37,3 +37,22 @@ area = d3.canvas.area()
   .y1(function(d) { return d.y1; });
 d3.select('canvas').call(area, data);
 ```
+
+### d3.canvas.arc
+```javascript
+var d = {
+	innerRadius: 10,
+	outerRadius: 20,
+	startAngle: Math.PI / 3,
+	endAngle: 5 * Math.PI / 3
+};
+
+// svg
+var arc = d3.svg.arc();
+d3.select('path').datum(d).attr('d', arc);
+
+// canvas
+var arc = d3.canvas.arc()
+	.translate([30, 30]);
+d3.select('canvas').call(arc, d);
+```
