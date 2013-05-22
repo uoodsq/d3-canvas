@@ -12,7 +12,7 @@ function d3_canvas_line() {
 			var n = data.length;
 
 			canvas.each(draw);
-		}
+		};
 
 		function draw() {
 			var ctx = this.getContext('2d'),
@@ -22,7 +22,7 @@ function d3_canvas_line() {
 			ctx.lineWidth = lineWidth;
 			ctx.lineCap = lineCap;
 			ctx.miterLimit = miterLimit;
-			ctx.beginPath()
+			ctx.beginPath();
 			ctx.moveTo.apply(null, coords(data[0], 0));
 			while (++i < n) {
 				ctx.lineTo.apply(null, coords(data[i], i));
@@ -39,43 +39,43 @@ function d3_canvas_line() {
 		if (!arguments.length) return x;
 		x = _;
 		return line;
-	}
+	};
 
 	line.y = function(_) {
 		if (!arguments.length) return y;
 		y = _;
 		return line;
-	}
+	};
 
 	line.strokeStyle = function(_) {
 		if (!arguments.length) return strokeStyle;
 		strokeStyle = _;
 		return line;
-	}
+	};
 
 	line.lineWidth = function(_) {
 		if (!arguments.length) return lineWidth;
 		lineWidth = _;
 		return line;
-	}
+	};
 
 	line.lineCap = function(_) {
 		if (!arguments.length) return lineCap;
 		lineCap = _;
 		return line;
-	}
+	};
 
 	line.lineJoin = function(_) {
 		if (!arguments.length) return lineJoin;
 		lineJoin = _;
 		return line;
-	}
+	};
 
 	line.miterLimit = function(_) {
 		if (!arguments.length) return miterLimit;
 		miterLimit = _;
 		return line;
-	}
+	};
 
 	return line;
 }
