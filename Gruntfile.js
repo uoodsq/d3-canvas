@@ -3,7 +3,12 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
 			dist: {
-				src: 'canvas/**/*.js',
+				src: [
+					'canvas/line.js',
+					'canvas/line-radial.js',
+					'canvas/area.js',
+					'canvas/arc.js'
+				],
 				dest: '<%= pkg.name %>.js'
 			}
 		},

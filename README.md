@@ -6,7 +6,7 @@ Usage
 -----
 D3 is all about binding data to elements.  However, unlike SVG, canvas is driven by a JavaScript API, and not DOM elements.
 
-### d3.canvas.line
+### d3.canvas.line (and radial)
 ```javascript
 var data = [[0, 1], [1, 1], [2, 2], [3, 3], [4, 5]], line;
 

@@ -1,129 +1,179 @@
 (function() {
 	d3.canvas = d3.canvas || {};
 
-	d3.canvas.arc = function() {
-		var innerRadius = function(d) { return d.innerRadius; },
-		    outerRadius = function(d) { return d.outerRadius; },
-		    startAngle = function(d) { return d.startAngle; },
-		    endAngle = function(d) { return d.endAngle; },
-		    arcOffset = - Math.PI / 2,
-		    strokeStyle = 'transparent',
-		    fillStyle,
+	d3.canvas.line = function() {
+		var x = function(d) { return d[0]; },
+		    y = function(d) { return d[1]; },
+		    strokeStyle,
+		    lineWidth,
+		    lineCap,
+		    lineJoin,
+		    miterLimit;
+
+		function line(canvas, data) {
+			var n = data.length;
+
+			canvas.each(function draw() {
+				var ctx = this.getContext('2d'),
+				    i = 0;
+
+				ctx.strokeStyle = strokeStyle;
+				ctx.lineWidth = lineWidth;
+				ctx.lineCap = lineCap;
+				ctx.miterLimit = miterLimit;
+				ctx.beginPath();
+				ctx.moveTo.apply(ctx, coords(data[0], 0));
+				while (++i < n) {
+					ctx.lineTo.apply(ctx, coords(data[i], i));
+				}
+				ctx.stroke();
+			});
+
+			function coords() {
+				return [+x.apply(this, arguments), +y.apply(this, arguments)];
+			}
+		}
+
+		line.x = function(_) {
+			if (!arguments.length) return x;
+			x = _;
+			return line;
+		};
+
+		line.y = function(_) {
+			if (!arguments.length) return y;
+			y = _;
+			return line;
+		};
+
+		line.strokeStyle = function(_) {
+			if (!arguments.length) return strokeStyle;
+			strokeStyle = _;
+			return line;
+		};
+
+		line.lineWidth = function(_) {
+			if (!arguments.length) return lineWidth;
+			lineWidth = _;
+			return line;
+		};
+
+		line.lineCap = function(_) {
+			if (!arguments.length) return lineCap;
+			lineCap = _;
+			return line;
+		};
+
+		line.lineJoin = function(_) {
+			if (!arguments.length) return lineJoin;
+			lineJoin = _;
+			return line;
+		};
+
+		line.miterLimit = function(_) {
+			if (!arguments.length) return miterLimit;
+			miterLimit = _;
+			return line;
+		};
+
+		return line;
+	};
+}());
+
+(function() {
+	d3.canvas = d3.canvas || {};
+
+	d3.canvas.line.radial = function() {
+		// TODO: Rewrite this and cartesian line to support projections
+		var radius = function(d) { return d[1]; },
+		    angle = function(d) { return d[0]; },
+		    strokeStyle,
 		    lineWidth,
 		    lineCap,
 		    lineJoin,
 		    miterLimit,
-		    translate;
+		    translate,
+		    angleOffset = -Math.PI / 2;
 
-		function arc(canvas, data) {
-			canvas.each(function draw() {
-				var ctx = this.getContext('2d'),
-				    r0 = innerRadius(data),
-				    r1 = outerRadius(data),
-				    a0 = startAngle(data) + arcOffset,
-				    a1 = endAngle(data) + arcOffset;
+		function line(canvas, data) {
+			var n = data.length;
 
-				ctx.strokeStyle = strokeStyle;
-				ctx.fillStyle = fillStyle;
-				ctx.lineWidth = lineWidth;
-				ctx.lineCap = lineCap;
-				ctx.lineJoin = lineJoin;
-				ctx.miterLimit = miterLimit;
-				ctx.translate.apply(ctx, translate);
-				ctx.beginPath();
+			function coords() {
+				var r = +radius.apply(this, arguments),
+				    a = +angle.apply(this, arguments) + angleOffset;
 
-				ctx.moveTo.apply(ctx, ptoc(r0, a0));
-				ctx.lineTo.apply(ctx, ptoc(r1, a0));
-				ctx.arc(0, 0, r1, a0, a1);
-				ctx.lineTo.apply(ctx, ptoc(r0, a1));
-				ctx.arc(0, 0, r0, a1, a0, true);
-
-				ctx.stroke();
-				ctx.fill();
-				ctx.closePath();
-				ctx.restore();
-			});
-
-			function ptoc(r, a) {
 				return [Math.cos(a) * r, Math.sin(a) * r];
 			}
+
+			canvas.each(function draw() {
+				var ctx = this.getContext('2d'),
+				    i = 0;
+
+				ctx.strokeStyle = strokeStyle;
+				ctx.lineWidth = lineWidth;
+				ctx.lineCap = lineCap;
+				ctx.miterLimit = miterLimit;
+
+				ctx.beginPath();
+				ctx.translate.apply(ctx, translate);
+				ctx.moveTo.apply(ctx, coords(data[0], 0));
+				while (++i < n) {
+					ctx.lineTo.apply(ctx, coords(data[i], i));
+				}
+				ctx.stroke();
+				ctx.closePath();
+			});
 		}
 
-		arc.innerRadius = function(_) {
-			if (!arguments.length) return innerRadius;
-			innerRadius = _;
-			return arc;
+		line.radius = function(_) {
+			if (!arguments.length) return radius;
+			radius = _;
+			return line;
 		};
 
-		arc.outerRadius = function(_) {
-			if (!arguments.length) return outerRadius;
-			outerRadius = _;
-			return arc;
+		line.angle = function(_) {
+			if (!arguments.length) return angle;
+			angle = _;
+			return line;
 		};
 
-		arc.startAngle = function(_) {
-			if (!arguments.length) return startAngle;
-			startAngle = _;
-			return arc;
-		};
-
-		arc.endAngle = function(_) {
-			if (!arguments.length) return endAngle;
-			endAngle = _;
-			return arc;
-		};
-
-		arc.centroid = function() {
-			var r = (innerRadius.apply(this, arguments)
-				+ outerRadius.apply(this, arguments)) / 2,
-			    a = (startAngle.apply(this, arguments)
-				+ endAngle.apply(this, arguments)) / 2 + arcOffset;
-			return [Math.cos(a) * r, Math.sin(a) * r];
-		};
-
-		arc.strokeStyle = function(_) {
+		line.strokeStyle = function(_) {
 			if (!arguments.length) return strokeStyle;
 			strokeStyle = _;
-			return arc;
+			return line;
 		};
 
-		arc.fillStyle = function(_) {
-			if (!arguments.length) return fillStyle;
-			fillStyle = _;
-			return arc;
-		};
-
-		arc.lineWidth = function(_) {
+		line.lineWidth = function(_) {
 			if (!arguments.length) return lineWidth;
 			lineWidth = _;
-			return arc;
+			return line;
 		};
 
-		arc.lineCap = function(_) {
+		line.lineCap = function(_) {
 			if (!arguments.length) return lineCap;
 			lineCap = _;
-			return arc;
+			return line;
 		};
 
-		arc.lineJoin = function(_) {
+		line.lineJoin = function(_) {
 			if (!arguments.length) return lineJoin;
 			lineJoin = _;
-			return arc;
+			return line;
 		};
 
-		arc.miterLimit = function(_) {
+		line.miterLimit = function(_) {
 			if (!arguments.length) return miterLimit;
 			miterLimit = _;
-			return arc;
+			return line;
 		};
 
-		arc.translate = function(_) {
+		line.translate = function(_) {
 			if (!arguments.length) return translate;
 			translate = _;
-			return arc;
+			return line;
 		};
 
-		return arc;
+		return line;
 	};
 }());
 (function() {
@@ -256,81 +306,128 @@
 (function() {
 	d3.canvas = d3.canvas || {};
 
-	d3.canvas.line = function() {
-		var x = function(d) { return d[0]; },
-		    y = function(d) { return d[1]; },
-		    strokeStyle,
+	d3.canvas.arc = function() {
+		var innerRadius = function(d) { return d.innerRadius; },
+		    outerRadius = function(d) { return d.outerRadius; },
+		    startAngle = function(d) { return d.startAngle; },
+		    endAngle = function(d) { return d.endAngle; },
+		    arcOffset = - Math.PI / 2,
+		    strokeStyle = 'transparent',
+		    fillStyle,
 		    lineWidth,
 		    lineCap,
 		    lineJoin,
-		    miterLimit;
+		    miterLimit,
+		    translate;
 
-		function line(canvas, data) {
-			var n = data.length;
-
+		function arc(canvas, data) {
 			canvas.each(function draw() {
 				var ctx = this.getContext('2d'),
-				    i = 0;
+				    r0 = innerRadius(data),
+				    r1 = outerRadius(data),
+				    a0 = startAngle(data) + arcOffset,
+				    a1 = endAngle(data) + arcOffset;
 
 				ctx.strokeStyle = strokeStyle;
+				ctx.fillStyle = fillStyle;
 				ctx.lineWidth = lineWidth;
 				ctx.lineCap = lineCap;
+				ctx.lineJoin = lineJoin;
 				ctx.miterLimit = miterLimit;
+				ctx.translate.apply(ctx, translate);
 				ctx.beginPath();
-				ctx.moveTo.apply(ctx, coords(data[0], 0));
-				while (++i < n) {
-					ctx.lineTo.apply(ctx, coords(data[i], i));
-				}
+
+				ctx.moveTo.apply(ctx, ptoc(r0, a0));
+				ctx.lineTo.apply(ctx, ptoc(r1, a0));
+				ctx.arc(0, 0, r1, a0, a1);
+				ctx.lineTo.apply(ctx, ptoc(r0, a1));
+				ctx.arc(0, 0, r0, a1, a0, true);
+
 				ctx.stroke();
+				ctx.fill();
+				ctx.closePath();
+				ctx.restore();
 			});
 
-			function coords() {
-				return [+x.apply(this, arguments), +y.apply(this, arguments)];
+			function ptoc(r, a) {
+				return [Math.cos(a) * r, Math.sin(a) * r];
 			}
 		}
 
-		line.x = function(_) {
-			if (!arguments.length) return x;
-			x = _;
-			return line;
+		arc.innerRadius = function(_) {
+			if (!arguments.length) return innerRadius;
+			innerRadius = _;
+			return arc;
 		};
 
-		line.y = function(_) {
-			if (!arguments.length) return y;
-			y = _;
-			return line;
+		arc.outerRadius = function(_) {
+			if (!arguments.length) return outerRadius;
+			outerRadius = _;
+			return arc;
 		};
 
-		line.strokeStyle = function(_) {
+		arc.startAngle = function(_) {
+			if (!arguments.length) return startAngle;
+			startAngle = _;
+			return arc;
+		};
+
+		arc.endAngle = function(_) {
+			if (!arguments.length) return endAngle;
+			endAngle = _;
+			return arc;
+		};
+
+		arc.centroid = function() {
+			var r = (innerRadius.apply(this, arguments)
+				+ outerRadius.apply(this, arguments)) / 2,
+			    a = (startAngle.apply(this, arguments)
+				+ endAngle.apply(this, arguments)) / 2 + arcOffset;
+			return [Math.cos(a) * r, Math.sin(a) * r];
+		};
+
+		arc.strokeStyle = function(_) {
 			if (!arguments.length) return strokeStyle;
 			strokeStyle = _;
-			return line;
+			return arc;
 		};
 
-		line.lineWidth = function(_) {
+		arc.fillStyle = function(_) {
+			if (!arguments.length) return fillStyle;
+			fillStyle = _;
+			return arc;
+		};
+
+		arc.lineWidth = function(_) {
 			if (!arguments.length) return lineWidth;
 			lineWidth = _;
-			return line;
+			return arc;
 		};
 
-		line.lineCap = function(_) {
+		arc.lineCap = function(_) {
 			if (!arguments.length) return lineCap;
 			lineCap = _;
-			return line;
+			return arc;
 		};
 
-		line.lineJoin = function(_) {
+		arc.lineJoin = function(_) {
 			if (!arguments.length) return lineJoin;
 			lineJoin = _;
-			return line;
+			return arc;
 		};
 
-		line.miterLimit = function(_) {
+		arc.miterLimit = function(_) {
 			if (!arguments.length) return miterLimit;
 			miterLimit = _;
-			return line;
+			return arc;
 		};
 
-		return line;
+		arc.translate = function(_) {
+			if (!arguments.length) return translate;
+			translate = _;
+			return arc;
+		};
+
+		return arc;
 	};
 }());
