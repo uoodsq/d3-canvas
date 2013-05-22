@@ -2,11 +2,11 @@
 	d3.canvas = d3.canvas || {};
 
 	d3.canvas.area = function() {
-		var x0 = d3_canvas_lineX,
-		    x1 = d3_canvas_lineX,
+		var x0 = function(d) { return d[0]; },
+		    x1 = function(d) { return d[0]; },
 		    y0 = 0,
-		    y1 = d3_canvas_lineY,
-		    strokeStyle,
+		    y1 = function(d) { return d[1]; },
+		    strokeStyle = 'transparent',
 		    fillStyle,
 		    lineWidth,
 		    lineCap,
@@ -14,9 +14,9 @@
 		    miterLimit;
 
 		function area(data) {
-			return function(canvas) {
-				var n = data.length;
+			var n = data.length;
 
+			return function(canvas) {
 				canvas.each(draw);
 			};
 
@@ -31,15 +31,16 @@
 				ctx.lineJoin = lineJoin;
 				ctx.miterLimit = miterLimit;
 				ctx.beginPath();
-				ctx.moveTo.apply(null, coords0(data[0], 0));
+				ctx.moveTo.apply(ctx, coords0(data[0], 0));
 				while (++i < n) {
-					ctx.lineTo.apply(null, coords0(data[i], i));
+					ctx.lineTo.apply(ctx, coords0(data[i], i));
 				}
-				ctx.lineTo.apply(null, coords1(data[i], i));
-				while (i-- > 0) {
-					ctx.lineTo.apply(null, coords1(data[i], i));
+				while (--i > -1) {
+					ctx.lineTo.apply(ctx, coords1(data[i], i));
 				}
+				ctx.lineTo.apply(ctx, coords0(data[0], 0));
 				ctx.stroke();
+				ctx.fill();
 				ctx.closePath();
 			}
 

@@ -11,9 +11,9 @@
 		    miterLimit;
 
 		function line(data) {
-			return function(canvas) {
-				var n = data.length;
+			var n = data.length;
 
+			return function(canvas) {
 				canvas.each(draw);
 			};
 
@@ -26,9 +26,9 @@
 				ctx.lineCap = lineCap;
 				ctx.miterLimit = miterLimit;
 				ctx.beginPath();
-				ctx.moveTo.apply(null, coords(data[0], 0));
+				ctx.moveTo.apply(ctx, coords(data[0], 0));
 				while (++i < n) {
-					ctx.lineTo.apply(null, coords(data[i], i));
+					ctx.lineTo.apply(ctx, coords(data[i], i));
 				}
 				ctx.stroke();
 			}
