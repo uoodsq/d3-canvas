@@ -1,0 +1,21 @@
+{
+  "name": "d3.canvas",
+  "version": "0.0.0",
+  "description": "Canvas rendering helpers for d3.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bspoon/d3-canvas.git"
+  },
+  "keywords": [
+    "canvas"
+  ],
+  "author": "Bryan Witherspoon",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/bspoon/d3-canvas/issues"
+  }
+}
