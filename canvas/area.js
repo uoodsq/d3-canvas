@@ -13,14 +13,10 @@
 		    lineJoin,
 		    miterLimit;
 
-		function area(data) {
+		function area(canvas, data) {
 			var n = data.length;
 
-			return function(canvas) {
-				canvas.each(draw);
-			};
-
-			function draw() {
+			canvas.each(function draw() {
 				var ctx = this.getContext('2d'),
 				    i = 0;
 
@@ -42,7 +38,7 @@
 				ctx.stroke();
 				ctx.fill();
 				ctx.closePath();
-			}
+			});
 
 			function coords0() {
 				return [+x0.apply(this, arguments), +y0.apply(this, arguments)];

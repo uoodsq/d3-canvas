@@ -13,14 +13,10 @@
 		    lineJoin,
 		    miterLimit;
 
-		function area(data) {
+		function area(canvas, data) {
 			var n = data.length;
 
-			return function(canvas) {
-				canvas.each(draw);
-			};
-
-			function draw() {
+			canvas.each(function draw() {
 				var ctx = this.getContext('2d'),
 				    i = 0;
 
@@ -42,7 +38,7 @@
 				ctx.stroke();
 				ctx.fill();
 				ctx.closePath();
-			}
+			});
 
 			function coords0() {
 				return [+x0.apply(this, arguments), +y0.apply(this, arguments)];
@@ -141,14 +137,10 @@
 		    lineJoin,
 		    miterLimit;
 
-		function line(data) {
+		function line(canvas, data) {
 			var n = data.length;
 
-			return function(canvas) {
-				canvas.each(draw);
-			};
-
-			function draw() {
+			canvas.each(function draw() {
 				var ctx = this.getContext('2d'),
 				    i = 0;
 
@@ -162,7 +154,7 @@
 					ctx.lineTo.apply(ctx, coords(data[i], i));
 				}
 				ctx.stroke();
-			}
+			});
 
 			function coords() {
 				return [+x.apply(this, arguments), +y.apply(this, arguments)];

@@ -16,7 +16,7 @@ d3.select('path').datum(data).attr('d', line);
 
 // using d3.canvas
 line = d3.canvas.line();
-d3.select('canvas').call(line(data));
+d3.select('canvas').call(line, data);
 ```
 
 ### d3.canvas.area
@@ -35,5 +35,5 @@ area = d3.canvas.area()
   .x(function(d) { return d.x; })
   .y0(function(d) { return d.y0; })
   .y1(function(d) { return d.y1; });
-d3.select('canvas').call(area(data));
+d3.select('canvas').call(area, data);
 ```
