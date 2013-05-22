@@ -12,6 +12,12 @@ module.exports = function(grunt) {
 				src: '<%= pkg.name %>.js',
 				dest: '<%= pkg.name %>.min.js'
 			}
+		},
+		watch: {
+			dist: {
+				files: 'canvas/**/*.js',
+				tasks: ['default']
+			}
 		}
 	});
 
