@@ -97,19 +97,19 @@
 			return area;
 		};
 
-		area.areaWidth = function(_) {
+		area.lineWidth = function(_) {
 			if (!arguments.length) return lineWidth;
 			lineWidth = _;
 			return area;
 		};
 
-		area.areaCap = function(_) {
+		area.lineCap = function(_) {
 			if (!arguments.length) return lineCap;
 			lineCap = _;
 			return area;
 		};
 
-		area.areaJoin = function(_) {
+		area.lineJoin = function(_) {
 			if (!arguments.length) return lineJoin;
 			lineJoin = _;
 			return area;
