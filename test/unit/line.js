@@ -12,8 +12,6 @@ describe('Line', function() {
 	});
 
 	it('should allow setting/getting of stroke options', function() {
-		var strokeStyle = 'steelBlue';
-
 		line
 			.strokeStyle('steelBlue')
 			.lineWidth('2px')
