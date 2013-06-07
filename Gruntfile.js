@@ -18,10 +18,20 @@ module.exports = function(grunt) {
 				dest: '<%= pkg.name %>.min.js'
 			}
 		},
+		karma: {
+			unit: {
+				configFile: 'karma.conf.js',
+				background: true
+			}
+		},
 		watch: {
 			dist: {
 				files: 'canvas/**/*.js',
 				tasks: ['default']
+			},
+			test: {
+				files: ['d3.canvas.js', 'test/unit/**/*.js'],
+				tasks: ['karma:unit:run']
 			}
 		}
 	});
@@ -29,4 +39,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['concat', 'uglify']);
 
 	grunt.loadNpmTasks('grunt-contrib');
+	grunt.loadNpmTasks('grunt-karma');
 };
