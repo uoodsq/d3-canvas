@@ -37,7 +37,9 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('default', ['concat', 'uglify']);
+	grunt.registerTask('test', ['concat', 'uglify', 'karma']);
 
-	grunt.loadNpmTasks('grunt-contrib');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-karma');
 };
