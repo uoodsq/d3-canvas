@@ -56,3 +56,14 @@ var arc = d3.canvas.arc()
 	.translate([30, 30]);
 d3.select('canvas').call(arc, d);
 ```
+
+Todo
+----
+- [d3.svg.symbolTypes](https://github.com/mbostock/d3/wiki/SVG-Shapes#symbolTypes)
+- [d3.svg.chord](https://github.com/mbostock/d3/wiki/SVG-Shapes#chord)
+- [d3.svg.diagonal](https://github.com/mbostock/d3/wiki/SVG-Shapes#diagonal)
+- [d3.svg.diagonal.radial](https://github.com/mbostock/d3/wiki/SVG-Shapes#diagonal_radial)
+- [Axes](https://github.com/mbostock/d3/wiki/SVG-Axes)
+- [Controls](https://github.com/mbostock/d3/wiki/SVG-Controls)
+- More testing (mock the canvas API!)
+- Latest APIs?  Haven't touched this in probably several versions of d3!
