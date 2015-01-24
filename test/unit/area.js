@@ -7,9 +7,12 @@ describe('Area', function() {
 
 	it('should support regular accessors', function() {
 		var keys = [
-			'x',
-			'y',
+			'x0',
+			'x1',
+			'y0',
+			'y1',
 			'strokeStyle',
+			'fillStyle',
 			'lineWidth',
 			'lineCap',
 			'lineJoin',

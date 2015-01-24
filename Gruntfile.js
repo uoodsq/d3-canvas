@@ -7,7 +7,9 @@ module.exports = function(grunt) {
 					'canvas/line.js',
 					'canvas/line-radial.js',
 					'canvas/area.js',
-					'canvas/arc.js'
+					'canvas/area-radial.js',
+					'canvas/arc.js',
+					'canvas/symbol.js'
 				],
 				dest: '<%= pkg.name %>.js'
 			}
@@ -21,7 +23,7 @@ module.exports = function(grunt) {
 		karma: {
 			unit: {
 				configFile: 'karma.conf.js',
-				background: true
+				singleRun: true
 			}
 		},
 		watch: {
@@ -37,7 +39,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('default', ['concat', 'uglify']);
-	grunt.registerTask('test', ['concat', 'uglify', 'karma']);
+	grunt.registerTask('test', ['concat', 'uglify', 'karma:unit']);
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');

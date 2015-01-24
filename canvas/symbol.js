@@ -22,6 +22,8 @@
 			size = _;
 			return symbol;
 		};
+
+		return symbol;
 	};
 
 	function d3_canvas_symbolSize() {
