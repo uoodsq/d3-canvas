@@ -1,46 +1,42 @@
-(function() {
-	d3.canvas = d3.canvas || {};
+function d3_canvas_symbolSize() {
+	return 64;
+}
 
-	d3.canvas.symbol = function() {
-		var type = function() { return 64; },
-		    size = function() { return 'circle'; };
+function d3_svg_symbolType() {
+	return 'circle';
+}
 
-		function symbol() {
-			var s = symbols[type.apply(this, arguments)] || circle;
+module.exports = function() {
+	var type = function() { return 64; },
+	    size = function() { return 'circle'; };
 
-			return s.call(this, size.apply(this, arguments));
-		}
+	function symbol() {
+		var s = symbols[type.apply(this, arguments)] || circle;
 
-		symbol.type = function(_) {
-			if (!arguments.length) return type;
-			type = _;
-			return symbol;
-		};
+		return s.call(this, size.apply(this, arguments));
+	}
 
-		symbol.size = function(_) {
-			if (!arguments.length) return size;
-			size = _;
-			return symbol;
-		};
-
+	symbol.type = function(_) {
+		if (!arguments.length) return type;
+		type = _;
 		return symbol;
 	};
 
-	function d3_canvas_symbolSize() {
-		return 64;
-	}
+	symbol.size = function(_) {
+		if (!arguments.length) return size;
+		size = _;
+		return symbol;
+	};
 
-	function d3_svg_symbolType() {
-		return 'circle';
-	}
+	return symbol;
+};
 
-	function circle(size) {
-		var ctx = this.getContext('2d'),
-		    r = Math.sqrt(size / Math.PI);
+exports.circle = function circle(size) {
+	var ctx = this.getContext('2d'),
+	    r = Math.sqrt(size / Math.PI);
 
-		ctx.beginPath();
-		ctx.arc(0, 0, r, 0, 2 * Math.PI);
-		ctx.stroke();
-		ctx.endPath();
-	}
-}());
+	ctx.beginPath();
+	ctx.arc(0, 0, r, 0, 2 * Math.PI);
+	ctx.stroke();
+	ctx.endPath();
+};
