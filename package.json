@@ -1,6 +1,6 @@
 {
   "name": "d3.canvas",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Canvas rendering helpers for d3.",
   "main": "index.js",
   "scripts": {
