@@ -1,8 +1,12 @@
-describe('Radial Area', function() {
+var assert = require('chai').assert;
+
+var Arc = require('../canvas/arc');
+
+describe('Arc', function() {
 	var arc;
 
 	beforeEach(function() {
-		arc = d3.canvas.arc();
+		arc = Arc();
 	});
 
 	it('should support regular accessors', function() {
@@ -22,7 +26,7 @@ describe('Radial Area', function() {
 
 		keys.forEach(function(key) {
 			arc[key](_);
-			arc[key]().should.equal(_);
+			assert.equal(arc[key](), _);
 		});
 	});
 });

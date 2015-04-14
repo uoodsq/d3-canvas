@@ -1,8 +1,12 @@
+var assert = require('chai').assert;
+
+var Area = require('../canvas/area');
+
 describe('Area', function() {
 	var area;
 
 	beforeEach(function() {
-		area = d3.canvas.area();
+		area = Area();
 	});
 
 	it('should support regular accessors', function() {
@@ -21,7 +25,7 @@ describe('Area', function() {
 
 		keys.forEach(function(key) {
 			area[key](_);
-			area[key]().should.equal(_);
+			assert.equal(area[key](), _);
 		});
 	});
 });

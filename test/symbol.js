@@ -1,14 +1,18 @@
+var assert = require('chai').assert;
+
+var Symbol = require('../canvas/symbol');
+
 describe('Symbol', function() {
 	var symbol, _ = 'foo';
 
 	beforeEach(function() {
-		symbol = d3.canvas.symbol();
+		symbol = Symbol();
 	});
 
 	it('should support regular accessors', function() {
 		symbol.type(_);
-		symbol.type().should.equal(_);
+		assert.equal(symbol.type(), _);
 		symbol.size(_);
-		symbol.type().should.equal(_);
+		assert.equal(symbol.type(), _);
 	});
 });

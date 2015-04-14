@@ -1,8 +1,12 @@
-describe('Area', function() {
-	var area;
+var assert = require('chai').assert;
+
+var Line = require('../canvas/line');
+
+describe('Line', function() {
+	var line;
 
 	beforeEach(function() {
-		area = d3.canvas.area();
+		line = Line();
 	});
 
 	it('should support regular accessors', function() {
@@ -17,8 +21,8 @@ describe('Area', function() {
 		], _ = 'hi';
 
 		keys.forEach(function(key) {
-			area[key](_);
-			area[key]().should.equal(_);
+			line[key](_);
+			assert.equal(line[key](), _);
 		});
 	});
 });

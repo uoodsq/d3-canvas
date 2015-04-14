@@ -1,15 +1,24 @@
+var assert = require('chai').assert;
+
+var AreaRadial = require('../canvas/area-radial');
+
 describe('Radial Area', function() {
-	var area;
+	var radial;
 
 	beforeEach(function() {
-		area = d3.canvas.area.radial();
+		radial = AreaRadial();
 	});
 
 	it('should support regular accessors', function() {
 		var keys = [
 			'angle',
 			'radius',
+			'startAngle',
+			'endAngle',
+			'innerRadius',
+			'outerRadius',
 			'strokeStyle',
+			'fillStyle',
 			'lineWidth',
 			'lineCap',
 			'lineJoin',
@@ -17,8 +26,8 @@ describe('Radial Area', function() {
 		], _ = 'cool';
 
 		keys.forEach(function(key) {
-			area[key](_);
-			area[key]().should.equal(_);
+			radial[key](_);
+			assert.equal(radial[key](), _);
 		});
 	});
 });
