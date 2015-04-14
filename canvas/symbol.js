@@ -6,7 +6,7 @@ function d3_svg_symbolType() {
 	return 'circle';
 }
 
-module.exports = function() {
+function d3_canvas_symbol() {
 	var type = function() { return 64; },
 	    size = function() { return 'circle'; };
 
@@ -31,7 +31,7 @@ module.exports = function() {
 	return symbol;
 };
 
-exports.circle = function circle(size) {
+d3_canvas_symbol.circle = function circle(size) {
 	var ctx = this.getContext('2d'),
 	    r = Math.sqrt(size / Math.PI);
 
@@ -40,3 +40,5 @@ exports.circle = function circle(size) {
 	ctx.stroke();
 	ctx.endPath();
 };
+
+module.exports = d3_canvas_symbol;
