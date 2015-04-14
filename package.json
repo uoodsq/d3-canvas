@@ -14,7 +14,7 @@
     "canvas"
   ],
   "author": "Bryan Witherspoon",
-  "license": "BSD",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/bspoon/d3-canvas/issues"
   },
