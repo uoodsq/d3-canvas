@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 			build: {
 				entry: './entry',
 				output: {
-					path: 'dist',
+					path: __dirname + '/dist',
 					filename: '<%= pkg.name %>.<%= pkg.version %>.js'
 				}
 			}

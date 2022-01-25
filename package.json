@@ -20,11 +20,11 @@
   },
   "devDependencies": {
     "chai": "^2.2.0",
-    "grunt": "^0.4.5",
-    "grunt-contrib-uglify": "^0.9.1",
-    "grunt-webpack": "^1.0.8",
-    "mocha": "^2.2.4",
-    "webpack": "^1.8.4",
-    "webpack-dev-server": "^1.8.0"
+    "grunt": "^1.4.1",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-webpack": "^5.0.0",
+    "mocha": "^9.2.0",
+    "webpack": "^5.67.0",
+    "webpack-dev-server": "^4.7.3"
   }
 }
