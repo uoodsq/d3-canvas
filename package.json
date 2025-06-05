@@ -25,6 +25,6 @@
     "grunt-webpack": "^5.0.0",
     "mocha": "^11.2.2",
     "webpack": "^5.67.0",
-    "webpack-dev-server": "^4.7.3"
+    "webpack-dev-server": "^5.2.1"
   }
 }
